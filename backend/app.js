@@ -19,7 +19,7 @@ connectDB();
 //Middlewares
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:5173']   
+    origin: ['http://localhost:5173', 'https://pos-final-green.vercel.app/']   
 }))
 app.use(express.json()); //parse incoming request in json format
 
