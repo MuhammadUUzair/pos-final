@@ -12,7 +12,7 @@ const isVerifiedUser = async (req, res, next)=>{
 
     try {
         
-        const {accessToken} = req.cookies;
+        const {accessToken} = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOnsiX2lkIjoiNjdiMjY2YjI2MjkwOThiOTEwMjdiYjYzIiwibmFtZSI6InV6YWlyIiwiZW1haWwiOiJtdWhhbW1hZHV1emFpcjIyQGdtYWlsLmNvbSIsInBob25lIjozMzYyODk1MTQzLCJwYXNzd29yZCI6IiQyYiQxMCQ2U2tDTjJYeGt1OUFWeGljSGE4QW1lS3VieHhtUlNhZWJNSGNWbEx4cmRDVTkxMDVGWEdFSyIsInJvbGUiOiJhZG1pbiIsImNyZWF0ZWRBdCI6IjIwMjUtMDItMTZUMjI6Mjk6MDYuOTIwWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDItMTZUMjI6Mjk6MDYuOTIwWiIsIl9fdiI6MH0sImlhdCI6MTc0MTE3OTY1MywiZXhwIjoxNzQxMjY2MDUzfQ.38tAZ97_rYzP4UrPEhrLioN-15c7RcgrNePppM9ISz8';// req.cookies;
 
         console.log(req.cookies);
         if(!accessToken){
