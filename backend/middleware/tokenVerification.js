@@ -14,6 +14,7 @@ const isVerifiedUser = async (req, res, next)=>{
         
         const {accessToken} = req.cookies;
 
+        console.log(req.cookies);
         if(!accessToken){
             const error = createHttpError(401, "Please provide token!");
             return next(error);
@@ -24,6 +25,7 @@ const isVerifiedUser = async (req, res, next)=>{
         
 
         const decodeToken = jwt.verify(accessToken, accessTokenSecret);
+        
 
         // console.log("decode tokenn" +decodeToken)
 
