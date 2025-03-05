@@ -16,6 +16,7 @@ connectDB();
 // app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 
+
 //Middlewares
 app.use(cors({
     credentials: true,

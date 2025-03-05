@@ -12,6 +12,9 @@ const api = axios.create({
 
 //API End point
 
+console.log(import.meta.env.VITE_BACKEND_URL);
+
+
 export const login = (data) => api.post("/api/user/login", data);
 export const register = (data) => api.post("/api/user/register", data);
 export const getUserData = (data) => api.get("/api/user");
