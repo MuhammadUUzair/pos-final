@@ -994,7 +994,7 @@ const MenuContainer = () => {
   // State for selected category and dishes
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [dishes, setDishes] = useState([]);
-  const [itemCount, setItemCount] = useState(0);
+  const [itemCount, setItemCount] = useState({});
   const [itemId, setItemId] = useState();
 
   // Fetch categories
@@ -1040,19 +1040,36 @@ const MenuContainer = () => {
     return <div>Loading categories...</div>;
   }
 
+  // // Increment item count
+  // const increment = (id) => {
+  //   setItemId(id);
+  //   if (itemCount >= 100) return;
+  //   setItemCount((prev) => prev + 1);
+  // };
+
+  // // Decrement item count
+  // const decrement = (id) => {
+  //   setItemId(id);
+  //   if (itemCount <= 0) return;
+  //   setItemCount((prev) => prev - 1);
+  // };
+
   // Increment item count
   const increment = (id) => {
-    setItemId(id);
-    if (itemCount >= 100) return;
-    setItemCount((prev) => prev + 1);
+    setItemCount((prevCounts) => ({
+      ...prevCounts,
+      [id]: (prevCounts[id] || 0) + 1,
+    }));
   };
 
   // Decrement item count
   const decrement = (id) => {
-    setItemId(id);
-    if (itemCount <= 0) return;
-    setItemCount((prev) => prev - 1);
+    setItemCount((prevCounts) => ({
+      ...prevCounts,
+      [id]: Math.max((prevCounts[id] || 0) - 1, 0),
+    }));
   };
+
 
   // Add item to cart
   const handleAddToCart = (item) => {

@@ -6,7 +6,7 @@ const {isVerifiedUser} = require("../middleware/tokenVerification")
 
 
 router.route("/").post(isVerifiedUser, addCategory);
-router.route("/").get(isVerifiedUser, getCategories);
+router.route("/").get( getCategories);
 
 
 

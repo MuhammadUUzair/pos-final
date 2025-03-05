@@ -22,6 +22,12 @@ app.use(cors({
     origin: ['http://localhost:5173']   
 }))
 app.use(express.json()); //parse incoming request in json format
+
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+//     next();
+//   });
+
 app.use(cookieParser())
 
 app.use((req, res, next) => {
