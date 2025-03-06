@@ -746,7 +746,7 @@ const BillInfo = () => {
     const [showInvoice, setShowInvoice] = useState(false);
     const [orderInfo, setOrderInfo] = useState(null);
     const [placedOrderData, setPlacedOrderData] = useState(null);
-    const [discountPercentage, setDiscountPercentage] = useState(0); // State for percentage discount
+    const [discountPercentage, setDiscountPercentage] = useState(0); 
 
     useEffect(() => {
         let taxRate;
@@ -758,12 +758,19 @@ const BillInfo = () => {
             taxRate = 0;
         }
 
-        const calculatedTax = (total * taxRate) / 100;
-        const totalWithTax = total + calculatedTax;
-        const discountAmount = (totalWithTax * discountPercentage) / 100; // Calculate discount on total with tax
+        // Calculate discount amount first
+        const discountAmount = (total * discountPercentage) / 100;
+        const discountedTotal = total - discountAmount;
+
+        // Calculate tax on the discounted total
+        const calculatedTax = (discountedTotal * taxRate) / 100;
+
+        // Calculate total price with tax after applying discount
+        const totalWithTax = discountedTotal + calculatedTax;
+
         setTax(calculatedTax);
-        setTotalPriceWithTax(totalWithTax - discountAmount); // Subtract discount from total with tax
-    }, [total, paymentMethod, discountPercentage]); // Add discountPercentage to dependency array
+        setTotalPriceWithTax(totalWithTax);
+    }, [total, paymentMethod, discountPercentage]);// Add discountPercentage to dependency array
 
     const handlePlaceOrder = async () => {
         if (!paymentMethod) {
@@ -812,6 +819,8 @@ const BillInfo = () => {
     const orderMutation = useMutation({
         mutationFn: (reqData) => addOrder(reqData),
         onSuccess: (resData) => {
+            dispatch(removeAllItems());
+            
             const { data } = resData.data;
             console.log('Order data from API:', data);
 

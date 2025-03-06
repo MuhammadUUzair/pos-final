@@ -293,6 +293,7 @@ const BottomNav = () => {
       name: customerName,
       phone: customerPhone,
       guests: guestCount,
+      orderType: "Dine-in"
     }));
     navigate("/Tables");
   };
@@ -343,8 +344,12 @@ const BottomNav = () => {
         isOpen={isDineInTakeAwayModalOpen} // Pass isOpen prop
         onClose={closeDineInTakeAwayModal} // Pass onClose prop
         onDineIn={() => {
+          
           closeDineInTakeAwayModal();
           openModal();
+          
+
+
         }}
         handleTakeAway={() => {
           // Dispatch default values for Take Away

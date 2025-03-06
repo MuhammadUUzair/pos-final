@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+
 import {formatDate,getAvatarName, formatDateAndTimeNew } from '../../utils';
 
 const CustomerInfo = () => {

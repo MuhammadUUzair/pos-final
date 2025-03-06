@@ -34,6 +34,8 @@ export const updateTable = (tableData) => {
 export const addOrder = (data) => api.post ("/api/order", data);
 export const getOrders = () => api.get("/api/order");
 export const updateOrder = ({orderId, orderStatus}) => api.put(`/api/order/${orderId}`,{orderStatus});
+// Delete an order
+export const deleteOrder = (orderId) => api.delete(`/api/order/${orderId}`);
 
 
 // export const updateOrderStatus = ({ orderId, orderStatus }) =>

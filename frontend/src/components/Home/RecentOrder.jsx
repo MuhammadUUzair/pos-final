@@ -68,8 +68,10 @@ import OrderList from './OrderList';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
 import { getOrders } from '../../https/index';
+import { useNavigate } from "react-router-dom"; 
 
 const RecentOrder = () => {
+  const navigate = useNavigate();
   const { data: resData, isError, isLoading } = useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
@@ -87,7 +89,9 @@ const RecentOrder = () => {
       <div className="bg-[#1a1a1a] w-full h-[450px] rounded-lg">
         <div className="flex justify-between items-center px-6 py-4">
           <h1 className="text-[#f5f5f5] text-lg font-semibold tracking-wider">Recent Orders</h1>
-          <a href="" className="text-[#025cca] text-sm font-semibold">
+          <a href="" className="text-[#025cca] text-sm font-semibold"
+            onClick={() => navigate("/orders")} // Navigate to the Orders page
+          >
             View All
           </a>
         </div>

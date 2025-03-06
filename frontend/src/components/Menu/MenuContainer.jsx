@@ -1258,7 +1258,7 @@ const MenuContainer = () => {
       name: dishName,
       pricePerQuantity: dishPrice,
       quantity: count,
-      price: dishPrice * count,
+      price: dishPrice,
     };
     dispatch(addItems(newObj));
     setItemCounts((prevCounts) => ({
@@ -1270,7 +1270,8 @@ const MenuContainer = () => {
   return (
     <>
       {/* Menu Categories */}
-      <div className="grid grid-cols-4 gap-4 px-10 py-4 w-[100%] hidden-scrollbar">
+      {/* <div className="grid grid-cols-4 gap-4 px-10 py-4 w-[100%] "> */}
+      <div className="grid grid-cols-4 gap-4 px-10 py-4 overflow-y-scroll h-[240px] hidden-scrollbar ">
         {categories?.map((category) => {
           console.log('Rendering Category:', {
             id: category._id,
@@ -1309,7 +1310,8 @@ const MenuContainer = () => {
 
       {/* Dishes for Selected Category */}
       <div>
-        <div className="grid grid-cols-4 gap-4 px-10 py-4 w-[100%]">
+        {/* <div className="grid grid-cols-4 gap-4 px-10 py-4 w-[100%]"> */}
+        <div className="grid grid-cols-4 gap-4 px-10 py-4 overflow-y-scroll h-auto hidden-scrollbar">
           {dishes.map((item) => {
             console.log('Rendering Dish:', {
               id: item._id,
