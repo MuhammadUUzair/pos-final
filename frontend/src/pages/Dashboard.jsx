@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { MdCategory, MdTableBar } from "react-icons/md";
 import { BiDish } from "react-icons/bi";
-import Metrics from '../components/dashboard/Metrics';
+// import Metrics from '../components/dashboard/Metrics';
 import RecentOrders from '../components/dashboard/RecentOrders';
 import Modal from '../components/dashboard/Modal';
 import CategoryModal from '../components/dashboard/CategoryModal';
