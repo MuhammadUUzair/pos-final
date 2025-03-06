@@ -30,7 +30,7 @@ const isVerifiedUser = async (req, res, next)=>{
          console.log("decode tokenn" +decodeToken)
 
         const user= await User.findById(decodeToken._id);
-        const user= await User.findById('67b266b2629098b91027bb63');
+        // const user= await User.findById('67b266b2629098b91027bb63');
         if(!user){
             const error = createHttpError(401, "User not exist!");
             return next(error)
