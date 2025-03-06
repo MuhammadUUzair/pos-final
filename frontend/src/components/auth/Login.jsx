@@ -38,6 +38,8 @@ const Login = () => {
         mutationFn: (reqData) => login(reqData),
         onSuccess: (res) => {
             const { data } = res;
+            document.cookie = `accessToken=${data.token}; path=/; max-age=86400; Secure; SameSite=Strict`;
+
             console.log(data);
             console.log("Cookies in JavaScript:", document.cookie);
             const { _id, name, email, phone, role } = data.data;
