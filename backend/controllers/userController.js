@@ -80,7 +80,9 @@ const login = async (req, res, next) => {
         })
 
         res.status(200).json({
-            sucess: true, message: "user login sucessfully!",
+            success: true,
+            message: "User logged in successfully!",
+            token: accessToken,   
             data: isUserPresent
         });
     } catch (error) {
