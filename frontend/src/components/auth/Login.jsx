@@ -39,6 +39,7 @@ const Login = () => {
         onSuccess: (res) => {
             const { data } = res;
             console.log(data);
+            console.log("Cookies in JavaScript:", document.cookie);
             const { _id, name, email, phone, role } = data.data;
             dispatch(setUser({ _id, name, email, phone, role }));
             navigate("/");
