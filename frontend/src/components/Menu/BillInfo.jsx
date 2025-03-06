@@ -80,6 +80,7 @@ const BillInfo = () => {
             },
             items: cartData,
             paymentMethod: paymentMethod,
+            table: customerData.table.tableId
         };
     
         // Conditionally include table property

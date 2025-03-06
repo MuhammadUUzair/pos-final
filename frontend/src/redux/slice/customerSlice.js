@@ -26,6 +26,7 @@ const customerSlice = createSlice({
             state.guests = guests;
             state.orderPlacedAt = new Date();
             state.orderType = orderType;
+            table: null
 
             
         },

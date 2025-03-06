@@ -131,10 +131,12 @@ export const logout = () => api.post("/api/user/logout");
 // Table Endpoints
 export const addTable = (data) => api.post("/api/table", data);
 export const getTable = () => api.get("/api/table");
-export const updateTable = (tableData) => {
-    const { _id, ...rest } = tableData;
-    return api.put(`/api/table/${_id}`, rest);
-};
+// export const updateTable = (tableData) => {
+//     const { _id, ...rest } = tableData;
+//     return api.put(`/api/table/${_id}`, rest);
+// };
+export const updateTable = ({tableId, ...tableData}) => api.put(`/api/table/${tableId}`, tableData)
+
 export const deleteTable = (tableId) => api.delete(`/api/table/${tableId}`);
 
 // Order Endpoints
