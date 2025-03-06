@@ -51,18 +51,62 @@ const addDish = async (req, res, next) => {
     }
 };
 
-const getDishes = async (req, res, next) => {
-    try {
-        const { categoryId } = req.params; // Get categoryId from the route parameters
+// const getDishes = async (req, res, next) => {
+//     try {
+//         const { categoryId } = req.params; // Get categoryId from the route parameters
 
-        // Validate categoryId
-        if (!mongoose.Types.ObjectId.isValid(categoryId)) {
-            const error = createHttpError(400, "Invalid Category ID!");
+//         // Validate categoryId
+//         if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+//             const error = createHttpError(400, "Invalid Category ID!");
+//             return next(error);
+//         }
+
+//         // Fetch dishes for the specified category
+//         const dishes = await Dishes.find({ category: categoryId }); // Use Dishes, not Dish
+
+//         res.status(200).json({
+//             success: true,
+//             data: dishes,
+//         });
+//     } catch (error) {
+//         console.error("Error fetching dishes:", error);
+//         return next(error);
+//     }
+// };
+
+const getDishesByCategory = async (req, res, next) => {
+        try {
+            const { categoryId } = req.params; // Get categoryId from the route parameters
+    
+            // Validate categoryId
+            if (!mongoose.Types.ObjectId.isValid(categoryId)) {
+                const error = createHttpError(400, "Invalid Category ID!");
+                return next(error);
+            }
+    
+            // Fetch dishes for the specified category
+            const dishes = await Dishes.find({ category: categoryId }); // Use Dishes, not Dish
+    
+            res.status(200).json({
+                success: true,
+                data: dishes,
+            });
+        } catch (error) {
+            console.error("Error fetching dishes:", error);
             return next(error);
         }
+    };
 
-        // Fetch dishes for the specified category
-        const dishes = await Dishes.find({ category: categoryId }); // Use Dishes, not Dish
+const getDishes = async (req, res, next) => {
+    try {
+        // Fetch all dishes (without filtering by category)
+        const dishes = await Dishes.find();
+
+        // If no dishes are found, return a 404 error
+        if (!dishes || dishes.length === 0) {
+            const error = createHttpError(404, "No dishes found!");
+            return next(error);
+        }
 
         res.status(200).json({
             success: true,
@@ -74,5 +118,92 @@ const getDishes = async (req, res, next) => {
     }
 };
 
+const updateDish = async (req, res, next) => {
+    try {
+        const { dishId } = req.params;
+        const { dishName, dishPrice, category } = req.body;
 
-module.exports = { addDish, getDishes };
+        // Validate dishId
+        if (!mongoose.Types.ObjectId.isValid(dishId)) {
+            const error = createHttpError(400, "Invalid Dish ID!");
+            return next(error);
+        }
+
+        // Input validation (optional, you might want to allow partial updates)
+        if (!dishName && !dishPrice && !category) {
+            const error = createHttpError(400, "Please provide at least one field to update!");
+            return next(error);
+        }
+
+        if (dishPrice && isNaN(dishPrice)) {
+            const error = createHttpError(400, "Dish Price must be a valid number!");
+            return next(error);
+        }
+
+        if (category && !mongoose.Types.ObjectId.isValid(category)) {
+            const error = createHttpError(400, "Invalid Category ID!");
+            return next(error);
+        }
+
+        // Find the dish to update
+        const dishToUpdate = await Dishes.findById(dishId);
+        if (!dishToUpdate) {
+            const error = createHttpError(404, "Dish not found!");
+            return next(error);
+        }
+
+        // Update dish properties
+        if (dishName) {
+            dishToUpdate.dishName = dishName;
+        }
+        if (dishPrice) {
+            dishToUpdate.dishPrice = dishPrice;
+        }
+        if (category) {
+            dishToUpdate.category = category;
+        }
+
+        // Save the updated dish
+        await dishToUpdate.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Dish updated!",
+            data: dishToUpdate,
+        });
+    } catch (error) {
+        console.error("Error updating dish:", error);
+        return next(error);
+    }
+};
+
+
+const deleteDish = async (req, res, next) => {
+    try {
+        const { dishId } = req.params;
+
+        // Validate dishId
+        if (!mongoose.Types.ObjectId.isValid(dishId)) {
+            const error = createHttpError(400, "Invalid Dish ID!");
+            return next(error);
+        }
+
+        // Find and delete the dish
+        const deletedDish = await Dishes.findByIdAndRemove(dishId);
+        if (!deletedDish) {
+            const error = createHttpError(404, "Dish not found!");
+            return next(error);
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Dish deleted!",
+            data: deletedDish,
+        });
+    } catch (error) {
+        console.error("Error deleting dish:", error);
+        return next(error);
+    }
+};
+
+module.exports = { addDish, getDishes, getDishesByCategory, updateDish, deleteDish };

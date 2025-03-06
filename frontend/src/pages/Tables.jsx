@@ -38,7 +38,7 @@ const Tables = () => {
       return table.status.toLowerCase() === 'booked'; // Match 'booked' (case-insensitive)
     } else if (status === 'Available') {
       // Match both 'avaliable' (misspelled) and 'Avaliable' (capitalized)
-      return table.status.toLowerCase() === 'avaliable' || table.status.toLowerCase() === 'available';
+      return table.status.toLowerCase() === 'avaliable' || table.status.toLowerCase() === 'available' ||table.status.toLowerCase() === 'Available';
     }
     return true; // Default to showing all tables
   });

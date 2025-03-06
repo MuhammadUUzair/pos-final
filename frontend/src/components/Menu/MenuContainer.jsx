@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addItems } from '../../redux/slice/cartSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { useQuery } from '@tanstack/react-query';
-import { getCategories, getDishes } from '../../https'; // Ensure this is imported
+import { getCategories, getDishesByCategory } from '../../https'; // Ensure this is imported
 import { enqueueSnackbar } from 'notistack';
 
 const MenuContainer = () => {
@@ -37,7 +37,7 @@ const MenuContainer = () => {
     if (selectedCategory && selectedCategory._id) {
       const fetchDishes = async () => {
         try {
-          const response = await getDishes(selectedCategory._id); // Pass categoryId
+          const response = await getDishesByCategory(selectedCategory._id); // Pass categoryId
           console.log('Dishes Response:', response); // Log the response
           setDishes(response.data.data); // Access the nested data
         } catch (error) {

@@ -5,7 +5,7 @@ const tableSchema = new mongoose.Schema({
     tableNo: { type: Number, required: true, unique: true},
     status:{
         type: String,
-        default: "Avaliable"
+        default: "Available"
     },
     seats:{
         type: Number,
