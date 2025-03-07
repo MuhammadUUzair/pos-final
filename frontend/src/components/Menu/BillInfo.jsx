@@ -46,6 +46,51 @@ const BillInfo = () => {
         setTotalPriceWithTax(totalWithTax);
     }, [total, paymentMethod, discountPercentage]);// Add discountPercentage to dependency array
 
+    // const handlePlaceOrder = async () => {
+    //     if (!paymentMethod) {
+    //         enqueueSnackbar('Please select payment method!', { variant: 'warning' });
+    //         return;
+    //     }
+    
+    //     // Check for table only if it's a Dine-in order
+    //     if (customerData.orderType === 'Dine-in' && !customerData.table) {
+    //         enqueueSnackbar('Please select a table!', { variant: 'warning' });
+    //         return;
+    //     }
+    
+    //     if (cartData.length === 0) {
+    //         enqueueSnackbar('Please add items to the cart!', { variant: 'warning' });
+    //         return;
+    //     }
+    
+    //     const orderData = {
+    //         orderId: { orderId: customerData.orderId },
+    //         customerDetails: {
+    //             name: customerData.customerName,
+    //             phone: customerData.customerPhone,
+    //             guests: customerData.guests,
+    //             orderType: customerData.orderType,
+    //         },
+    //         orderStatus: 'In Progress',
+    //         bills: {
+    //             total: total,
+    //             tax: tax,
+    //             totalWithTax: totalPriceWithTax,
+    //             discountPercentage: discountPercentage, // Include discount percentage in order data
+    //         },
+    //         items: cartData,
+    //         paymentMethod: paymentMethod,
+    //         table: customerData.table.tableId
+    //     };
+    
+    //     // Conditionally include table property
+    //     if (customerData.orderType === 'Dine-in') {
+    //         orderData.table = customerData.table.tableId;
+    //     }
+    
+    //     orderMutation.mutate(orderData);
+    // };
+
     const handlePlaceOrder = async () => {
         if (!paymentMethod) {
             enqueueSnackbar('Please select payment method!', { variant: 'warning' });
@@ -76,20 +121,33 @@ const BillInfo = () => {
                 total: total,
                 tax: tax,
                 totalWithTax: totalPriceWithTax,
-                discountPercentage: discountPercentage, // Include discount percentage in order data
+                discountPercentage: discountPercentage,
             },
             items: cartData,
             paymentMethod: paymentMethod,
-            table: customerData.table.tableId
         };
     
-        // Conditionally include table property
+        // Conditionally include table property only for Dine-in orders
         if (customerData.orderType === 'Dine-in') {
             orderData.table = customerData.table.tableId;
         }
     
-        orderMutation.mutate(orderData);
+        try {
+            // Place the order
+            await orderMutation.mutateAsync(orderData);
+    
+            // If the order is Dine-in, update the table status to "Booked"
+            if (customerData.orderType === 'Dine-in') {
+                await updateTableStatus(customerData.table.tableId, 'Booked');
+                enqueueSnackbar('Order placed successfully and table status updated!', { variant: 'success' });
+            } 
+            }
+        catch (error) {
+            
+            console.error('Error placing order:', error);
+        }
     };
+
 
     const orderMutation = useMutation({
         mutationFn: (reqData) => addOrder(reqData),

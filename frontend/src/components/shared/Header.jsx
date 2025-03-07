@@ -169,7 +169,7 @@ const Header = () => {
             <div onClick={()=> navigate('/')} className="flex items-center gap-2 cursor-pointer">
                 <img src={logo} alt="restaurant logo"
                  className="h-auto w-auto max-h-10 max-w-10 object-contain " />
-                <h1 className="text-lg font-semibold text-[#f5f5f5] ">Savory Bites</h1>
+                <h1 className="text-lg font-semibold text-[#f5f5f5] ">Savoury Bites</h1>
             </div>
 
 
