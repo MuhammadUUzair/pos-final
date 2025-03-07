@@ -1373,7 +1373,7 @@ const Receipt = ({ orderInfo, setShowInvoice }) => {
                             alt="restaurant logo"
                             className="mx-auto w-24 h-auto object-contain mb-3 logo-print"
                         />
-                        <h2 className="text-xl font-bold">Savory Bites</h2>
+                        <h2 className="text-xl font-bold">Savoury Bites</h2>
                         <p>Address: Shop no.2 plot no.19-C, Rahat Commercial Lane Phase VI, D.H.A, Karachi</p>
                         <p>Telp. +92 337 8018705</p>
                         <div className="text-left mt-2">
